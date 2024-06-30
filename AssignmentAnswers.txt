@@ -1,0 +1,97 @@
+Section A:-
+
+
+Answer 1:-The MongoDB aggregation framework is a powerful tool for processing large collections of documents.
+
+Aggregation processes documents through a series of stages, forming a pipeline.
+Common use cases include calculating aggregate values and performing complex transformations.
+Unlike basic methods like find(), aggregation can handle more advanced tasks.
+
+Aggregation Pipeline Stages:
+
+$match: Filters documents based on criteria.
+$group: Aggregates data (e.g., sum, average) for groups of documents.
+$sort: Orders the resulting documents.
+Other stages like $project, $unwind, and $limit can be used as needed.
+
+Example Use Case: Sales Analytics
+
+Imagine a sales database with orders. We want to find the total revenue per product category.
+Here’s a simplified pipeline:
+$match: Filter orders by date range or other conditions.
+$group: Group by product category, summing up revenue.
+$sort: Sort results by revenue (descending).
+This pipeline efficiently calculates revenue by category.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Answer 2:-
+In React, a higher-order component (HOC) is a powerful feature that allows you to reuse component logic across multiple components. Here’s how it works:
+An HOC is a function that takes a component as an argument and returns a new component that wraps the original one.
+It lets you add functionality to a component without modifying its code directly.
+Example Use Case: Authentication
+Suppose you have an app with various routes, some requiring authentication.
+Instead of duplicating authentication logic in each component, create an HOC called withAuth.
+withAuth checks if the user is authenticated and redirects them to the login page if not.
+HOC Structure:
+
+
+const withAuth = (WrappedComponent) => {
+  class NewComponent extends React.Component {
+    // Additional logic here (e.g., authentication check)
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  }
+  return NewComponent;
+};
+
+Usage:
+
+Suppose you have a Dashboard component:
+class Dashboard extends React.Component {
+  // Your dashboard logic here
+}
+
+To add authentication, wrap it with withAuth:
+const AuthenticatedDashboard = withAuth(Dashboard);
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Section B
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Answer 3:- 
+
+As i implemented the jwtToken (json web token) in the 4 questions Answer. First we have to install the jwtToken.
+Workflow of jwtToken:-
+
+1. User Login:- 
+User submits credentials (email,password).
+Server verifies credentials.
+If valid, server generates AccessToken.
+Both tokens are sent back to the client through res.json from and store in localStorage.
+
+2. Subsequent Requests:
+Client includes AccessToken in headers.
+Server validates AccessToken:
+Verifies expiration.
+Ensures it’s not revoked.
+If valid, server processes the request.
+
+3. Token Expiry:
+in this assignment Token expires in 5 days.
+then the client has to login again to get a new AccessToken.
+
+4.Logout User:- when user logged out the token and user information is removed from the localStorage
+ans also removes from the cookie in backend.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Answer 4:- 
+
+I created a Minor Mern Stack Application where user can login and signup have to enter their role.
+According to the role the user direct to their role dashboard.
+In this their are three types of Users:-
+1. Developer
+2. Marketing
+3. Finance
