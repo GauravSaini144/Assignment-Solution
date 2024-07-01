@@ -22,14 +22,14 @@ function Signup() {
     }
     const handleOnSubmit = async(event)=>{
          event.preventDefault();
-        if(formData.name.length>0 && formData.email.length>0 && formData.password.length>0){
+        if(formData.name.length>2 && formData.email.length>8 && formData.password.length>5){
             const Data={
                 name:formData.name,
                 email:formData.email,
                 password:formData.password,
                 role,
             };
-            console.log(Data);
+        
 
             try{
                 const response= await axios.post(
@@ -41,8 +41,7 @@ function Signup() {
                 setFormData({name:"", email:"",password:""});
                 const authData = JSON.parse(localStorage.getItem('auth'));
                 const { user } = authData;
-                console.log("authdata");
-                console.log(authData);
+                
                 if(user.role=="Developer"){
                     navigate("/developerdashboard");
                 }
@@ -55,8 +54,9 @@ function Signup() {
         
                 }
             }catch(err){
+                if(err.response){
                 console.log(err);
-                toast.error(err.message);
+                toast.error(err.response.data.message);}
             }}
             else{
                 toast.error("Please fill the fields");
@@ -77,19 +77,17 @@ function Signup() {
    <div className="col-8 offset-2">
        <h1 className="mb-3">SignUp</h1>
 
-        <form onSubmit={handleOnSubmit} className="needs-validation">
+        <form onSubmit={handleOnSubmit} className="needs-validation" noValidate>
 
            <div className="mb-3">
                <label htmlFor="name" className="form-label">Name</label>
                <input type="text" name="name" id='name' placeholder="Enter Name" value={formData.name} onChange={handleOnChange} className="form-control" required/>
-               <div className="valid-feedback" >Looks good</div>
-           <div className="invalid-feedback" name="name">Name Required</div>
            </div>
 
            <div className="mb-3">
                <label htmlFor="email" className="form-label">Email</label>
                <input type="email" name="email" id='email' placeholder="Enter Email" className="form-control" value={formData.email} onChange={handleOnChange} required/>
-           <div className="invalid-feedback" htmlFor="email">Email Required</div>
+          
            </div>  
 
 
@@ -100,13 +98,13 @@ function Signup() {
                 <option value="Marketing">Marketing</option>
                 <option value="Finance">Finance</option>
                </select>
-           <div className="invalid-feedback">Email Required</div>
+           
            </div>  
 
            <div className="mb-3">
                <label htmlFor="password" className="form-label">Password</label>
                <input type="password" name="password" id='password' placeholder="Enter password" className="form-control" value={formData.password} onChange={handleOnChange} required/>
-           <div className="invalid-feedback">Password Required</div>
+          
            </div> 
            <button className="btn btn-success">SignUp</button>
         </form>

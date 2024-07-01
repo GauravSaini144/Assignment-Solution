@@ -9,7 +9,13 @@ function FinanceDashboard() {
     const navigate=useNavigate();
     useEffect(()=>{
         const authData = JSON.parse(localStorage.getItem('auth'));
+        if(!authData){
+          toast.error("Please Login");
+          navigate("/");
+        }else{
         const { user, token } = authData;
+      
+
         if(!token){
         toast.error("access denied");
           navigate("/");
@@ -19,12 +25,12 @@ function FinanceDashboard() {
         toast.error("access denied");
         navigate("/");
         }else{
-            toast.success("welcome back");
+            toast.success("welcome");
         }
         
-    },[]);
+    }},[]);
   return (<>
-   <div className="card" style={{width: "18rem"}}>
+   <div className="card" style={{width: "18rem", margin:"auto", marginTop:"5%"}}>
   
   <div className="card-body">
     <h5 className="card-title">Finance Dashboard</h5>

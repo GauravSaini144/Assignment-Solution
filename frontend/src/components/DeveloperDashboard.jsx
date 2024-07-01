@@ -6,10 +6,17 @@ import Logout from './Logout.jsx';
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function DeveloperDashboard() {
+   
     const navigate=useNavigate();
     useEffect(()=>{
-        const authData = JSON.parse(localStorage.getItem('auth'));
-        const { user, token } = authData;
+      const authData = JSON.parse(localStorage.getItem('auth'));
+      if(!authData){
+        toast.error("Please Login");
+        navigate("/");
+      }else{
+      const { user, token } = authData;
+
+      
         if(!token){
         toast.error("access denied");
           navigate("/");
@@ -19,12 +26,12 @@ function DeveloperDashboard() {
         toast.error("access denied");
         navigate("/");
         }else{
-            toast.success("welcome back");
+            toast.success("welcome");
         }
         
-    },[]);
+    }},[]);
   return (<>
-   <div className="card" style={{width: "18rem"}}>
+   <div className="card" style={{width: "18rem",margin:"auto", marginTop:"5%"}}>
   
   <div className="card-body">
     <h5 className="card-title">Developer Dashboard</h5>

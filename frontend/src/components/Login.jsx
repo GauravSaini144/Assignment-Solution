@@ -53,14 +53,41 @@ const handleOnSubmit=async(event)=>{
 
         }
     }catch(err){
+        if(err.response){
         console.log(err);
-        toast.error(err.message);
+        toast.error(err.response.data.message);}
     }}
     else{
         toast.error("Please fill the fields");
     }
 
 };
+useEffect(()=>{
+    const authData = JSON.parse(localStorage.getItem('auth'));
+    if(authData){
+        const { user, token } = authData;
+        if(!token){
+            
+        }
+        else{
+            setTimeout(()=>{
+            toast.success("Already Logged In");
+            if(user.role=="Developer"){
+                navigate("/developerdashboard");
+            }
+            else if(user.role=="Marketing"){
+                navigate("/marketingdashboard");
+    
+            }
+            else if(user.role=="Finance"){
+                navigate("/financedashboard");
+    
+            }},2000);
+        }
+    }
+    
+
+})
 
   return (
   <><div className="row">
@@ -81,7 +108,7 @@ const handleOnSubmit=async(event)=>{
             <label htmlFor="email" className="form-label">Email</label>
             <input type="text" name="email" id='email' placeholder="Enter Email" className="form-control" value={formdata.email} onChange={handleOnChange} required/>
           
-        <div className="invalid-feedback">Email Required</div>
+       
         </div>
 
 
@@ -89,7 +116,7 @@ const handleOnSubmit=async(event)=>{
         <div className="mb-3">
             <label htmlFor="password"  className="form-label">Password</label>
             <input type="password" name="password" id='password' placeholder="Enter password" className="form-control" value={formdata.password} onChange={handleOnChange} required/>
-        <div className="invalid-feedback">Password Required</div>
+       
         </div> 
         <p>don't have account? <a href='/signup ' className='color-blue' >Sign up</a></p>
         <button className="btn btn-success">Login</button>
